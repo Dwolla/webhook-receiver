@@ -1,0 +1,47 @@
+{
+  "name": "webhook-receiver",
+  "version": "1.0.0",
+  "scripts": {
+    "clean": "find src scripts -type f \\( -name '*.js' -o -name '*.map' \\) -delete",
+    "create-customer": "cd scripts && tsc && node create-customer.js && cd - && npm run clean",
+    "deploy": "serverless deploy --verbose",
+    "remove": "serverless remove",
+    "setup": "cd scripts && tsc && node one-time-setup.js && cd - && npm run clean"
+  },
+  "dependencies": {
+    "@therockstorm/utils": "^2.1.0",
+    "source-map-support": "^0.5.10"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.15",
+    "@types/node": "^10.12.7",
+    "acorn": "^6.0.5",
+    "dwolla-v2": "^2.0.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.0.5",
+    "prettier": "^1.16.1",
+    "serverless": "^1.36.2",
+    "serverless-webpack": "^5.2.0",
+    "ts-loader": "^5.3.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json,yml,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}

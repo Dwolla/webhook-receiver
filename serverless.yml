@@ -1,0 +1,25 @@
+service: ${file(./package.json):name}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  stage: ${opt:stage, env:ENVIRONMENT}
+  timeout: 15
+  memorySize: 128
+  environment:
+    WEBHOOK_SECRET: ${env:WEBHOOK_SECRET}
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    includeModules:
+      forceExclude: [aws-sdk]
+
+functions:
+  func:
+    handler: src/handler.handle
+    events:
+      - http: POST /
