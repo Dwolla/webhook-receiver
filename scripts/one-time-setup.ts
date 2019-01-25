@@ -1,5 +1,5 @@
-import { log, envVar } from '@therockstorm/utils'
-import client from './client'
+import { error, envVar, log } from '@therockstorm/utils'
+import client, { handleError } from './client'
 import 'source-map-support/register'
 
 const URL = '<Your ServiceEndpoint Here>'
@@ -15,7 +15,9 @@ const setup = async () => {
     return
   }
 
-  const res = await token.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
+  const res = await handleError(() =>
+    token.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
+  )
   log(`Created ${res.headers.get('location')}`)
 }
 

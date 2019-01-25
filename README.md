@@ -11,5 +11,5 @@ This app deploys a webhook handler as an [AWS Lambda](https://aws.amazon.com/lam
 1. Run `npm run deploy` to create the Lambda function. After the deploy, a publicly accessible HTTP endpoint is logged to the console as `ServiceEndpoint`. Copy and paste it into the `URL` variable in `one-time-setup.ts`.
 1. Run `npm run setup` to create your Webhook Subscription
 1. Run `npm run create-customer` to create a customer in Dwolla's API
-1. Check your Lambda function's logs for `Received customer_created`. It's working!
+1. Check your Lambda function's logs for `Received customer_created, body=...`. It's working!
 1. [Optional] To remove the resources in AWS, `npm run remove`

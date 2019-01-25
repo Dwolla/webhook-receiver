@@ -1,9 +1,5 @@
 import { envVar, error, log } from '@therockstorm/utils'
-import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyHandler,
-  APIGatewayProxyResult
-} from 'aws-lambda'
+import { APIGatewayProxyHandler } from 'aws-lambda'
 import crypto from 'crypto'
 import 'source-map-support/register'
 
@@ -21,9 +17,7 @@ const isSignatureValid = (body: string, signature: string) =>
     .update(body)
     .digest('hex')
 
-export const handle: APIGatewayProxyHandler = async (
-  evt: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+export const handle: APIGatewayProxyHandler = async evt => {
   if (!evt.body) return response(400, 'Invalid request body.')
 
   const signature = evt.headers['X-Request-Signature-SHA-256']
@@ -34,7 +28,7 @@ export const handle: APIGatewayProxyHandler = async (
 
   try {
     const webhook = JSON.parse(evt.body)
-    log(`Received ${webhook.topic}`)
+    log(`Received ${webhook.topic}, body=${JSON.stringify(webhook, null, 2)}`)
   } catch (e) {
     return response(400, 'Invalid JSON.')
   }
