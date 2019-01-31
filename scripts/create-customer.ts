@@ -9,7 +9,6 @@ const randomStr = () =>
 
 const create = async () => {
   const token = await client.auth.client()
-
   const res = await handleError(() =>
     token.post('customers', {
       firstName: 'Webhook',
@@ -19,7 +18,7 @@ const create = async () => {
     })
   )
 
-  log(`Created ${res.headers.get('location')}`)
+  if (res) log(`Created ${res.headers.get('location')}`)
 }
 
 create()

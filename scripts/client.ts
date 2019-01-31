@@ -13,6 +13,6 @@ export const handleError = async (func: () => any) => {
   try {
     return await func()
   } catch (e) {
-    error(e.message)
+    error(JSON.stringify(e, null, 2))
   }
 }
