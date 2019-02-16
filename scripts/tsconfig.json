@@ -3,7 +3,8 @@
     "esModuleInterop": true,
     "lib": ["esnext"],
     "moduleResolution": "node",
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "target": "es5"
   },
   "include": ["."]

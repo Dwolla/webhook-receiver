@@ -21,18 +21,19 @@ export const handle: APIGatewayProxyHandler = async evt => {
   if (!evt.body) return response(400, 'Invalid request body.')
 
   const signature = evt.headers['X-Request-Signature-SHA-256']
-  if (!signature) return response(400, 'No signature')
+  if (!signature) return response(400, 'No signature.')
 
   if (!isSignatureValid(evt.body, signature))
-    return response(400, 'Invalid signature')
+    return response(400, 'Invalid signature.')
 
+  let webhook
   try {
-    const webhook = JSON.parse(evt.body)
-    log(`Received ${webhook.topic}, body=${JSON.stringify(webhook, null, 2)}`)
+    webhook = JSON.parse(evt.body)
   } catch (e) {
     return response(400, 'Invalid JSON.')
   }
 
+  log(`Received ${webhook.topic}, body=${JSON.stringify(webhook, null, 2)}`)
   return response(200, 'Success!')
 }
 
