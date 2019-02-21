@@ -6,6 +6,7 @@
     "create-customer": "cd scripts && tsc && node create-customer.js && cd - && npm run clean",
     "deploy": "serverless deploy --verbose",
     "remove": "serverless remove",
+    "lint": "tslint './**/*.ts' --exclude './node_modules/**/*.ts' --fix",
     "logs": "serverless logs --function func",
     "setup": "cd scripts && tsc && node one-time-setup.js && cd - && npm run clean"
   },
@@ -25,6 +26,7 @@
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^5.3.0",
     "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3",
     "webpack": "^4.29.3",
     "webpack-node-externals": "^1.7.2"
@@ -35,6 +37,9 @@
     }
   },
   "lint-staged": {
+    "*.{ts}": [
+      "tslint --fix"
+    ],
     "*.{js,ts,json,yml,md}": [
       "prettier --write",
       "git add"

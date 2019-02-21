@@ -1,6 +1,6 @@
 import { log } from '@therockstorm/utils'
-import client, { handleError } from './client'
 import 'source-map-support/register'
+import client, { handleError } from './client'
 
 const randomStr = () =>
   Math.random()
@@ -11,14 +11,16 @@ const create = async () => {
   const token = await client.auth.client()
   const res = await handleError(() =>
     token.post('customers', {
+      email: `${randomStr()}@example.com`,
       firstName: 'Webhook',
       lastName: 'Test',
-      email: `${randomStr()}@example.com`,
       type: 'unverified'
     })
   )
 
-  if (res) log(`Created ${res.headers.get('location')}`)
+  if (res) {
+    log(`Created ${res.headers.get('location')}`)
+  }
 }
 
 create()
