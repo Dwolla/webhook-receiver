@@ -1,4 +1,4 @@
-import { envVar, log } from '@therockstorm/utils'
+import { envVar, error, log } from '@therockstorm/utils'
 import 'source-map-support/register'
 import client, { handleError } from './client'
 
@@ -23,4 +23,4 @@ const setup = async () => {
   }
 }
 
-setup()
+setup().catch(error)

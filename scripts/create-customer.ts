@@ -1,4 +1,4 @@
-import { log } from '@therockstorm/utils'
+import { error, log } from '@therockstorm/utils'
 import 'source-map-support/register'
 import client, { handleError } from './client'
 
@@ -23,4 +23,4 @@ const create = async () => {
   }
 }
 
-create()
+create().catch(error)
