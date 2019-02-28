@@ -1,10 +1,10 @@
-import { envVar, log } from '@therockstorm/utils'
-import 'source-map-support/register'
-import client, { handleError } from './client'
+import { envVar, error, log } from "@therockstorm/utils"
+import "source-map-support/register"
+import client, { handleError } from "./client"
 
-const URL = 'https://5vurtdx5ff.execute-api.us-west-2.amazonaws.com/local'
-const WEBHOOK_SECRET = envVar('WEBHOOK_SECRET')
-const ROUTE = 'webhook-subscriptions'
+const URL = "<Your ServiceEndpoint Here>"
+const WEBHOOK_SECRET = envVar("WEBHOOK_SECRET")
+const ROUTE = "webhook-subscriptions"
 
 const setup = async () => {
   const token = await client.auth.client()
@@ -19,8 +19,8 @@ const setup = async () => {
     token.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
   )
   if (res) {
-    log(`Created ${res.headers.get('location')}`)
+    log(`Created ${res.headers.get("location")}`)
   }
 }
 
-setup()
+setup().catch(error)

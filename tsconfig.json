@@ -1,17 +1,4 @@
 {
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "strict": true,
-    "target": "es2017"
-  },
+  "extends": "./node_modules/skripts/base-tsconfig.json",
   "include": ["src"]
 }
