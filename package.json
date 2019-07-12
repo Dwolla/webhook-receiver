@@ -12,13 +12,13 @@
     "setup": "cd scripts && tsc && node one-time-setup.js && cd - && npm run clean"
   },
   "dependencies": {
-    "@therockstorm/utils": "^3.0.7",
+    "@therockstorm/utils": "^3.0.10",
     "source-map-support": "^0.5.12"
   },
   "devDependencies": {
-    "dwolla-v2": "^2.0.1",
-    "husky": "^2.2.0",
-    "skripts": "0.0.15"
+    "dwolla-v2": "^3.0.3",
+    "husky": "^3.0.0",
+    "skripts": "0.0.16"
   },
   "husky": {
     "hooks": {

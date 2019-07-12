@@ -7,8 +7,7 @@ const WEBHOOK_SECRET = envVar("WEBHOOK_SECRET")
 const ROUTE = "webhook-subscriptions"
 
 const setup = async () => {
-  const token = await client.auth.client()
-  const subs = await token.get(ROUTE)
+  const subs = await client.get(ROUTE)
   const match = subs.body._embedded[ROUTE].filter((s: any) => s.url === URL)
   if (match.length > 0) {
     log(`Subscription already exists for this URL, id=${match[0].id}`)
@@ -16,7 +15,7 @@ const setup = async () => {
   }
 
   const res = await handleError(() =>
-    token.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
+    client.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
   )
   if (res) {
     log(`Created ${res.headers.get("location")}`)

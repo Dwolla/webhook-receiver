@@ -1,12 +1,10 @@
 import { envVar, error } from "@therockstorm/utils"
-import dwolla from "dwolla-v2"
+import { Client } from "dwolla-v2"
 
-export default new dwolla.Client({
+export default new Client({
   environment: "sandbox",
   key: envVar("DWOLLA_APP_KEY"),
   secret: envVar("DWOLLA_APP_SECRET")
-  // In production app, save token to your database for reuse
-  // onGrant: (token) => new Promise(...)
 })
 
 export const handleError = async (func: () => any) => {
