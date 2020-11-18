@@ -4,7 +4,7 @@ import { Client } from "dwolla-v2"
 export default new Client({
   environment: "sandbox",
   key: envVar("DWOLLA_APP_KEY"),
-  secret: envVar("DWOLLA_APP_SECRET")
+  secret: envVar("DWOLLA_APP_SECRET"),
 })
 
 export const handleError = async (func: () => any) => {

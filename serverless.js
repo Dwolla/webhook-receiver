@@ -6,14 +6,14 @@ module.exports = {
     ...serverless.provider,
     environment: {
       ...serverless.provider.environment,
-      WEBHOOK_SECRET: "${env:WEBHOOK_SECRET}"
-    }
+      WEBHOOK_SECRET: "${env:WEBHOOK_SECRET}",
+    },
   },
   functions: {
     func: {
       handler: "src/handler.handle",
-      events: [{ http: "POST /" }]
-    }
+      events: [{ http: "POST /" }],
+    },
   },
-  timeout: 15
+  timeout: 15,
 }
