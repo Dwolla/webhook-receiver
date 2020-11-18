@@ -7,17 +7,14 @@ const WEBHOOK_SECRET = envVar("WEBHOOK_SECRET")
 
 const response = (statusCode: number, message: string) => ({
   body: JSON.stringify({ message }),
-  statusCode
+  statusCode,
 })
 
 const isSignatureValid = (body: string, signature: string) =>
   signature ===
-  crypto
-    .createHmac("sha256", WEBHOOK_SECRET)
-    .update(body)
-    .digest("hex")
+  crypto.createHmac("sha256", WEBHOOK_SECRET).update(body).digest("hex")
 
-export const handle: APIGatewayProxyHandler = async evt => {
+export const handle: APIGatewayProxyHandler = async (evt) => {
   if (!evt.body) {
     return response(400, "Invalid request body.")
   }
@@ -42,4 +39,4 @@ export const handle: APIGatewayProxyHandler = async evt => {
   return response(200, "Success!")
 }
 
-process.on("unhandledRejection", e => error("unhandledRejection", e))
+process.on("unhandledRejection", (e) => error("unhandledRejection", e))

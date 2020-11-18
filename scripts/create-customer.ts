@@ -2,10 +2,7 @@ import { error, log } from "@therockstorm/utils"
 import "source-map-support/register"
 import client, { handleError } from "./client"
 
-const randomStr = () =>
-  Math.random()
-    .toString(36)
-    .substr(2, 10)
+const randomStr = () => Math.random().toString(36).substr(2, 10)
 
 const create = async () => {
   const token = await client.auth.client()
@@ -14,7 +11,7 @@ const create = async () => {
       email: `${randomStr()}@example.com`,
       firstName: "Webhook",
       lastName: "Test",
-      type: "unverified"
+      type: "unverified",
     })
   )
 

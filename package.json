@@ -5,9 +5,9 @@
     "clean": "skripts clean scripts --pattern '*.js'",
     "create-customer": "cd scripts && tsc && node create-customer.js && cd - && npm run clean",
     "deploy": "sls deploy",
-    "format": "skripts prettier",
+    "format": "skripts format",
     "remove": "sls remove",
-    "lint": "skripts tslint",
+    "lint": "skripts lint --fix",
     "logs": "sls logs --function func",
     "setup": "cd scripts && tsc && node one-time-setup.js && cd - && npm run clean"
   },
@@ -18,7 +18,7 @@
   "devDependencies": {
     "dwolla-v2": "^3.0.3",
     "husky": "^3.0.0",
-    "skripts": "0.0.16"
+    "skripts": "^0.8.2"
   },
   "husky": {
     "hooks": {
