@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@therockstorm/utils": "^3.0.10",
-    "source-map-support": "^0.5.12"
+    "source-map-support": "^0.5.19"
   },
   "devDependencies": {
     "dwolla-v2": "^3.0.3",
