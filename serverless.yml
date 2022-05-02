@@ -1,0 +1,24 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+frameworkVersion: "3"
+service: dwolla-webhook-example
+useDotenv: true
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: nodejs14.x
+  environment:
+    WEBHOOK_SECRET: ${env:WEBHOOK_SECRET}
+  timeout: 15
+
+functions:
+  webhook-receiver:
+    handler: src/handler.handle
+    events:
+      - http:
+          path: /
+          method: POST
+
+plugins:
+  - serverless-webpack

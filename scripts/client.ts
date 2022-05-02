@@ -1,16 +1,16 @@
-import { envVar, error } from "@therockstorm/utils"
-import { Client } from "dwolla-v2"
+import { Client } from "dwolla-v2";
+import dotenv from "dotenv";
+import path from "path";
 
-export default new Client({
-  environment: "sandbox",
-  key: envVar("DWOLLA_APP_KEY"),
-  secret: envVar("DWOLLA_APP_SECRET"),
-})
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-export const handleError = async (func: () => any) => {
-  try {
-    return await func()
-  } catch (e) {
-    error(JSON.stringify(e, null, 2))
-  }
-}
+/**
+ * Fetch the Dwolla Client using `dwolla-v2`. To learn more about our SDK,
+ * visit the following link: https://developers.dwolla.com/api-reference/sdks/node-js
+ */
+export const getClient = () =>
+  new Client({
+    environment: "sandbox",
+    key: process.env.DWOLLA_APP_KEY!,
+    secret: process.env.DWOLLA_APP_SECRET!
+  });

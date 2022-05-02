@@ -1,15 +1,15 @@
-# webhook-receiver
+# Dwolla Webhook Receiver
 
-This sample app shows how to create a Dwolla Webhook Subscription and verify its signature. See the [Documentation](https://docsv2.dwolla.com/#webhook-subscriptions) for more details.
+This sample TypeScript application demonstrates how to create a webhook subscription for Dwolla events, deployed to AWS via Lambda function.
 
 ## Setup
 
-This app deploys a webhook handler as an [AWS Lambda](https://aws.amazon.com/lambda/) function via the [Serverless Framework](https://serverless.com/). You can deploy one to your AWS account as follows,
+This app deploys a webhook handler as an [AWS Lambda](https://aws.amazon.com/lambda/) function using the [Serverless Framework](https://serverless.com/). You can deploy one to your AWS account(s) as follows:
 
-1. Clone the repository and install dependencies with `npm install`
-1. Export environment variables for your Dwolla Sandbox `DWOLLA_APP_KEY`, `DWOLLA_APP_SECRET`, and `WEBHOOK_SECRET`. If you're not sure what these are, [start here](https://developers.dwolla.com/guides/sandbox-setup/). The `WEBHOOK_SECRET` is explained [here](https://docsv2.dwolla.com/#create-a-webhook-subscription).
-1. Run `npm run deploy` to create the Lambda function. After the deploy, a publicly accessible HTTP endpoint is logged to the console as `ServiceEndpoint`. Copy and paste it into the `URL` variable in `one-time-setup.ts`.
-1. Run `npm run setup` to create your Webhook Subscription
-1. Run `npm run create-customer` to create a customer in Dwolla's API
-1. Check your Lambda function's logs for `Received customer_created, body=...` with `npm run logs` (you may have to wait ~15 seconds). It's working!
-1. [Optional] To remove the resources in AWS, `npm run remove`
+1. Clone the repository and install dependencies with `pnpm install`
+2. Rename `.env.example` to `.env`, and update the environment variables
+3. Run `pnpm sls:deploy` to create the Lambda function. After it deploys, a publicly accessible HTTP endpoint is logged to the console as `endpoint`. Copy and paste it into the `URL` variable in `scripts/one-time-setup.ts`
+4. Run `pnpm hook:setup` to create your Webhook Subscription
+5. Run `pnpm hook:create-customer` to create a customer in Dwolla's API
+6. Check your Lambda function's logs for `Received customer_created, body=...` with `pnpm sls:logs` (you may have to wait ~15 seconds). It's working!
+7. [Optional] To remove the resources in AWS, `pnpm sls:remove`

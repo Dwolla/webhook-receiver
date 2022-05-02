@@ -1,25 +1,34 @@
-import { envVar, error, log } from "@therockstorm/utils"
-import "source-map-support/register"
-import client, { handleError } from "./client"
+import { getClient } from "./client";
 
-const URL = "<Your ServiceEndpoint Here>"
-const WEBHOOK_SECRET = envVar("WEBHOOK_SECRET")
-const ROUTE = "webhook-subscriptions"
+const AWS_LAMBDA_URL = "<YOUR_LAMBDA_ENDPOINT_HERE>";
+const WEBHOOK_SUBSCRIPTION_ROUTE = "webhook-subscriptions";
 
-const setup = async () => {
-  const subs = await client.get(ROUTE)
-  const match = subs.body._embedded[ROUTE].filter((s: any) => s.url === URL)
-  if (match.length > 0) {
-    log(`Subscription already exists for this URL, id=${match[0].id}`)
-    return
+const client = getClient();
+
+/**
+ * Check if a webhook subscription already exists for this Lambda URL. If it does, its
+ * ID is printed to the console; if it doesn't, a webhook subscription is created using
+ * the `WEBHOOK_SECRET` environment variable, and the response is printed to the console.
+ */
+const runSetup = async () => {
+  const currentSubscriptions = await client.get(WEBHOOK_SUBSCRIPTION_ROUTE);
+  const subscriptionMatch = currentSubscriptions.body._embedded[WEBHOOK_SUBSCRIPTION_ROUTE].filter(
+    (s: any) => s.url === AWS_LAMBDA_URL
+  );
+
+  if (subscriptionMatch.length > 0) {
+    console.log(`Subscription already exists for this URL, id=${subscriptionMatch[0].id}`);
+    return;
   }
 
-  const res = await handleError(() =>
-    client.post(ROUTE, { url: URL, secret: WEBHOOK_SECRET })
-  )
-  if (res) {
-    log(`Created ${res.headers.get("location")}`)
-  }
-}
+  const response = await client.post(WEBHOOK_SUBSCRIPTION_ROUTE, {
+    url: AWS_LAMBDA_URL,
+    secret: process.env.WEBHOOK_SECRET
+  });
 
-setup().catch(error)
+  if (response) {
+    console.log(`Created ${response.headers.get("Location")}`);
+  }
+};
+
+runSetup().catch((err) => console.error(err));
