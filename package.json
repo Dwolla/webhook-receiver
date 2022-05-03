@@ -9,8 +9,12 @@
     "hook:create-customer": "cd scripts && tsc && node create-customer.js && cd - && pnpm clean",
     "hook:setup": "cd scripts && tsc && node one-time-setup.js && cd - && pnpm clean",
     "sls:deploy": "sls deploy",
-    "sls:logs": "sls logs -f webhook-receiver",
+    "sls:logs:queue": "sls logs -f queue-handler",
+    "sls:logs:webhook": "sls logs -f webhook-receiver",
     "sls:remove": "sls remove"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1126.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.95",

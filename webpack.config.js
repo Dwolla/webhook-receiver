@@ -3,6 +3,7 @@ const path = require("path");
 const swls = require("serverless-webpack");
 
 module.exports = {
+  devtool: "nosources-source-map",
   entry: swls.lib.entries,
   externals: [nodeExternals()],
   externalsPresets: {
@@ -13,8 +14,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader",
-        exclude: [path.resolve(__dirname, ".serverless"), path.resolve(__dirname, ".webpack")]
+        loader: "ts-loader"
       }
     ]
   },
