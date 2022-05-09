@@ -5,4 +5,5 @@
 .vscode/
 .webpack/
 node_modules/
+.env
 scripts/*.js

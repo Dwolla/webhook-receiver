@@ -1,0 +1,47 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+frameworkVersion: "3"
+service: dwolla-webhook-example
+useDotenv: true
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: nodejs14.x
+  environment:
+    WEBHOOK_SECRET: ${env:WEBHOOK_SECRET}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:SendMessage
+          Resource:
+            Fn::GetAtt: [ webhookQueue, Arn ]
+  timeout: 15
+
+functions:
+  queue-handler:
+    handler: src/handler.queueHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - webhookQueue
+              - Arn
+  webhook-receiver:
+    handler: src/handler.webhookReceiver
+    events:
+      - http:
+          path: /
+          method: POST
+
+plugins:
+  - serverless-webpack
+
+resources:
+  Resources:
+    webhookQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: webhookQueue

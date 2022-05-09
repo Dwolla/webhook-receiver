@@ -1,23 +1,29 @@
-import { error, log } from "@therockstorm/utils"
-import "source-map-support/register"
-import client, { handleError } from "./client"
+import { getClient } from "./client";
 
-const randomStr = () => Math.random().toString(36).substr(2, 10)
+/**
+ * Create a pseudo-random 8-character string to be used for the customer's email address.
+ */
+const genRandomEmail = () => Math.random().toString(36).substring(2, 10);
 
-const create = async () => {
-  const token = await client.auth.client()
-  const res = await handleError(() =>
-    token.post("customers", {
-      email: `${randomStr()}@example.com`,
+/**
+ * Using the `dwolla-v2` SDK, call the API to create a new Unverified Customer Record (UCR) using
+ * a pseudo-random email address. If the response is successful, the UCR location is printed to the console.
+ */
+const createCustomer = async () => {
+  try {
+    const response = await getClient().post("customers", {
+      email: `${genRandomEmail()}@example.com`,
       firstName: "Webhook",
       lastName: "Test",
-      type: "unverified",
-    })
-  )
+      type: "unverified"
+    });
 
-  if (res) {
-    log(`Created ${res.headers.get("location")}`)
+    if (response) {
+      console.log(`Created ${response.headers.get("Location")}`);
+    }
+  } catch (e) {
+    throw e;
   }
-}
+};
 
-create().catch(error)
+createCustomer().catch((err) => console.error(err));
