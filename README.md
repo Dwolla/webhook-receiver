@@ -6,6 +6,8 @@ This sample TypeScript application demonstrates how to create a webhook subscrip
 
 This app deploys a webhook handler as an [AWS Lambda](https://aws.amazon.com/lambda/) function using the [Serverless Framework](https://serverless.com/). You can deploy one to your AWS account(s) as follows:
 
+NOTE: Any `pnpm` command can be replaced with `npm`.
+
 1. Clone the repository and install dependencies with `pnpm install`
 2. Rename `.env.example` to `.env`, and update the environment variables
 3. Run `pnpm sls:deploy` to create the Lambda functions. After they deploy, a publicly accessible HTTP endpoint is logged to the console as `endpoint`. Copy and paste it into the `URL` variable in `scripts/one-time-setup.ts`
